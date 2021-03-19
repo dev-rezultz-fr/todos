@@ -1,0 +1,55 @@
+<html>
+	<head>
+	</head>
+	<style>
+	</style>
+	<body>
+		<h1>My Todolist - Vanilla JS</h1>
+		<ul id="list">
+		</ul>
+		<input id="input" type="text" value="" placeholder="new action"/>
+		<button id="button">ajouter</button>
+		<script>
+			// Appel API
+			var myTodos = new XMLHttpRequest();
+			myTodos.open("GET","../todos.json");
+			myTodos.send(null);
+			myTodos.onreadystatechange = function() {
+				if (myTodos.readyState == 4 && (myTodos.status == 200 || myTodos.status == 0)) {
+					let data = JSON.parse(myTodos.responseText).list;
+					for(var i=0;i<data.length;i++){
+						createAndAppendNewAction(data[i]);
+					}
+				}
+			};
+			
+			document.getElementById("button").addEventListener("click", function( e ) {
+				let actionText = document.getElementById("input").value;
+				createAndAppendNewAction(actionText);
+				document.getElementById("input").value = '';
+			});
+			let makeActionDone = function(e){
+				let li = e.target.parentNode;
+				li.removeChild(e.target);
+				li.innerHTML = '<del>'+li.innerHTML+'</del>';
+			}			
+			let createAndAppendNewAction = function(t){
+				if(t.text != ''){
+					// Création du li portant l'action
+					let newAction = document.createElement("li");
+					// Ajout du texte de l'ction dans le li
+					newAction.innerHTML='<i>'+t.text+'</i>';
+						// Ajout d'un bouton 'action faite' dans l'action
+						let button = document.createElement("button");
+						button.innerText = 'Fait';
+						// Ajoute la gestion d'un événement sur le bouton
+						button.addEventListener("click",makeActionDone);
+						newAction.appendChild(button);
+					// Accrochage de l'ensemble li+button dans le document
+					document.getElementById("list").appendChild(newAction);
+				}
+			}
+			
+		</script>
+	</body>
+</html>

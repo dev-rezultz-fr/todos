@@ -1,0 +1,16 @@
+{
+  "name": "Tuto",
+  "authors": [
+    "ADVENTS"
+  ],
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.0-rc.3",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0-rc.7",
+    "iron-ajax": "PolymerElements/iron-ajax#^1.4.3"
+  },
+  "resolutions": {
+    "webcomponentsjs": "^v1.0.2",
+    "polymer": "^2.0.0-rc.3"
+  }
+}
